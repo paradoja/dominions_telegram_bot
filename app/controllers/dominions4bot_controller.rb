@@ -37,13 +37,11 @@ class Dominions4botController < Telegram::Bot::UpdatesController
 
   def im_playing_in(port)
     players = playing_nations port
-    answers = []
-    players.each do |player|
-      answers << [{text: "Soy #{player}", callback_data: "soy! #{player}@#{port}"}]
+    answers = players.map do |player|
+      [{text: "Soy #{player}", callback_data: "soy! #{player}@#{port}"}]
     end
 
     respond_with :message, text: "¿quién eres en #{port}?", reply_markup: {inline_keyboard:  answers}
-
   end
 
 
